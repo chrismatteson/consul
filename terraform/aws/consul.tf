@@ -7,7 +7,7 @@ resource "aws_instance" "server" {
 
     connection {
         user = "${lookup(var.user, var.platform)}"
-        private_key = "${file("${var.key_path}")}"
+        private_key = "${var.private_key}"
     }
 
     #Instance tags
