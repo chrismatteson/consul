@@ -24,10 +24,11 @@ sudo mkdir -p /opt/consul/data
 # Read from the file we created
 SERVER_COUNT=$(cat /tmp/consul-server-count | tr -d '\n')
 CONSUL_JOIN=$(cat /tmp/consul-server-addr | tr -d '\n')
+IPADDRESS=$(hostname --all-ip-addresses)
 
 # Write the flags to a temporary file
 cat >/tmp/consul_flags << EOF
-CONSUL_FLAGS="-server -bootstrap-expect=${SERVER_COUNT} -join=${CONSUL_JOIN} -data-dir=/opt/consul/data -ui"
+CONSUL_FLAGS="-server -bootstrap-expect=${SERVER_COUNT} -join=${CONSUL_JOIN} -data-dir=/opt/consul/data -ui -client=${IPADDRESS}"
 EOF
 
 if [ -f /tmp/upstart.conf ];
