@@ -27,6 +27,7 @@ resource "aws_instance" "server" {
         inline = [
             "echo ${var.servers} > /tmp/consul-server-count",
             "echo ${aws_instance.server.0.private_ip} > /tmp/consul-server-addr",
+            "cd /tmp; wget ${consul_binary} consul.zip --quiet"
         ]
     }
 

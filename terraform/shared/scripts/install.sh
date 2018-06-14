@@ -13,7 +13,7 @@ fi
 echo "Fetching Consul..."
 CONSUL=1.0.0
 cd /tmp
-wget https://releases.hashicorp.com/consul/${CONSUL}/consul_${CONSUL}_linux_amd64.zip -O consul.zip --quiet
+#wget https://releases.hashicorp.com/consul/${CONSUL}/consul_${CONSUL}_linux_amd64.zip -O consul.zip --quiet
 
 echo "Installing Consul..."
 unzip consul.zip >/dev/null
