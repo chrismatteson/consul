@@ -68,6 +68,14 @@ resource "aws_security_group" "consul" {
         cidr_blocks = ["0.0.0.0/0"]
     }
 
+    // These are for consul
+    ingress {
+        from_port = 8500
+        to_port = 8500
+        protocol = "tcp"
+        cidr_blocks = ["0.0.0.0/0"]
+    }
+
     // This is for outbound internet access
     egress {
         from_port = 0
