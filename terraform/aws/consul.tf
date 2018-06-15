@@ -3,7 +3,7 @@ resource "aws_instance" "server" {
     instance_type = "${var.instance_type}"
     key_name = "${var.key_name}"
     count = "${var.servers}"
-    security_groups = ["${aws_security_group.consul.id}"]
+    vpc_security_group_ids = ["${aws_security_group.consul.id}"]
     subnet_id = "${lookup(var.subnets, count.index % var.servers)}"
 
     connection {
