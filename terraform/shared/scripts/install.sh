@@ -28,7 +28,7 @@ IPADDRESS=$(hostname --all-ip-addresses)
 
 # Write the flags to a temporary file
 cat >/tmp/consul_flags << EOF
-CONSUL_FLAGS="-server -bootstrap-expect=${SERVER_COUNT} -join=${CONSUL_JOIN} -data-dir=/opt/consul/data -ui -client=${IPADDRESS}"
+CONSUL_FLAGS="-server -bootstrap-expect=${SERVER_COUNT} -join=${CONSUL_JOIN} -data-dir=/opt/consul/data -ui -client=${IPADDRESS} -advertise=`curl http://169.254.169.254/2009-04-04/meta-data/public-ipv4"
 EOF
 
 if [ -f /tmp/upstart.conf ];
@@ -45,6 +45,7 @@ else
   echo "Installing Systemd service..."
   sudo mkdir -p /etc/sysconfig
   sudo mkdir -p /etc/systemd/system/consul.d
+  sudo echo '{"connect":"enable":true}}' > /etc/systemd/system/consul.d/connect.json
   sudo chown root:root /tmp/consul.service
   sudo mv /tmp/consul.service /etc/systemd/system/consul.service
   sudo mv /tmp/consul*json /etc/systemd/system/consul.d/ || echo
